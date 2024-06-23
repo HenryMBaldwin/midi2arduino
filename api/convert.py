@@ -33,7 +33,7 @@ async def convert(file: UploadFile = File(...)):
     tempo = None
 
     contents = await file.read()
-    midiFile = MidiFile(BytesIO(contents))
+    midiFile = MidiFile(file=BytesIO(contents))  # Corrected this line
     mergedMidiFile = MidiFile()
     mergedMidiFile.tracks.append(mido.merge_tracks(midiFile.tracks))
 
