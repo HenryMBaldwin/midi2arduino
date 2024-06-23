@@ -8,6 +8,7 @@
 	let files: FileList;
 
 	async function handleFile(event: Event) {
+		console.log("event: ", event);
 		if(files.length > 0) {
 			uploadedFile = files[0];
 			console.log("Uploaded file:", uploadedFile);
