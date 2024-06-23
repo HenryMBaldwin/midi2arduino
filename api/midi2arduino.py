@@ -3,6 +3,7 @@ from mido import MidiFile
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import StreamingResponse
 from io import BytesIO
+import zipfile
 import os
 
 app = FastAPI()
@@ -50,16 +51,16 @@ async def convert(file: UploadFile = File(...)):
                 tempo = metaDic['tempo']
 
         if msg.time != 0:
-            for i in range(((len(notesOn) - 1) / 2) + 1):
+            for i in range((len(notesOn) - 1) // 2 + 1):
                 if i not in output_files:
                     output_files[i] = BytesIO()
 
-                output_files[i].write('  delay({});\n'.format((msg.time / 1.5) * 1000).encode('utf-8'))
+                output_files[i].write(f'  delay({(msg.time / 1.5) * 1000});\n'.encode('utf-8'))
 
         if 'note' in msgDict:
             if msg.type == 'note_on' and msg.velocity != 0:
                 for index, io in enumerate(notesOn):
-                    if type(io) == int:
+                    if isinstance(io, int):
                         notesOn[index] = msg
                         noteIndex = index
                         messageAdded = True
@@ -77,13 +78,13 @@ async def convert(file: UploadFile = File(...)):
 
                 if fileNumber > highestFileNumber and totalTime != 0:
                     highestFileNumber = fileNumber
-                    output_files[fileNumber].write('  delay({});\n'.format((totalTime / 1.5) * 1000).encode('utf-8'))
+                    output_files[fileNumber].write(f'  delay({(totalTime / 1.5) * 1000});\n'.encode('utf-8'))
 
-                output_files[fileNumber].write('  tone{}.play({});\n'.format(toneNumber, midiNUM(msg.note)).encode('utf-8'))
+                output_files[fileNumber].write(f'  tone{toneNumber}.play({midiNUM(msg.note)});\n'.encode('utf-8'))
 
             elif msg.type == 'note_off' or msg.velocity == 0:
                 for index, item in enumerate(notesOn):
-                    if not type(item) == int:
+                    if not isinstance(item, int):
                         if msg.note == item.note and msg.channel == item.channel:
                             notesOn[index] = 0
                             noteIndex = index
@@ -95,7 +96,7 @@ async def convert(file: UploadFile = File(...)):
                 if fileNumber not in output_files:
                     output_files[fileNumber] = BytesIO()
 
-                output_files[fileNumber].write('  tone{}.stop();\n'.format(toneNumber).encode('utf-8'))
+                output_files[fileNumber].write(f'  tone{toneNumber}.stop();\n'.encode('utf-8'))
 
     zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
