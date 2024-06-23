@@ -2,22 +2,22 @@
     "version": 2,
     "builds": [
       {
-        "src": "src/**/*",
+        "src": "src/routes/**/*",
         "use": "@sveltejs/adapter-vercel"
       },
       {
-        "src": "api/**/*.py",
+        "src": "api/midi2arduino.py",
         "use": "@vercel/python"
       }
     ],
     "routes": [
       {
         "src": "/api/(.*)",
-        "dest": "/api/$1"
+        "dest": "/api/midi2arduino.py"
       },
       {
         "src": "/(.*)",
-        "dest": "/src/$1"
+        "dest": "/src/routes/$1"
       }
     ]
   }
