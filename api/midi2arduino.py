@@ -1,4 +1,3 @@
-import argparse
 import mido
 from mido import MidiFile
 from fastapi import FastAPI, File, UploadFile
