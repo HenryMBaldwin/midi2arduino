@@ -2,8 +2,12 @@
     "version": 2,
     "builds": [
       {
-        "src": "src/routes/**/*",
-        "use": "@sveltejs/adapter-vercel"
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "build",
+          "buildCommand": "npm run build"
+        }
       },
       {
         "src": "api/midi2arduino.py",
@@ -17,7 +21,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "/src/routes/$1"
+        "dest": "/build/$1"
       }
     ]
   }
