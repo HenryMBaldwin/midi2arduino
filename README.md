@@ -8,7 +8,7 @@ Check it out [here](https://midi2arduino.vercel.app/)
 
 ## About
 
-This transpiler converts midi to arduino code using the the Arduino Tone library. Due to the number of hardware timers on the Arduino UNO, only two tones can be generated on one Arduino UNO at a time. This means multiple files and Arduinos may be necessary to play a full MIDI file depending on the song. This transpiler will output the minimum number of code files in a .zip necessary to represent the given .mid. The transpiling is done via a Python script deployed as an API alongside the SvelteKit front-end on Vercel.
+This transpiler converts MIDI files to Arduino Code that utilizes the [Arduino ToneLibrary](https://www.arduino.cc/reference/en/libraries/tonelibrary/). Due to the number of hardware timers on the Arduino UNO, only two tones can be generated on one Arduino UNO at a time. This means multiple files and Arduinos may be necessary to play a full MIDI file depending on the song. This transpiler will output the minimum number of code files in a .zip necessary to represent the given .mid. The transpiling is done via a Python script deployed as an API alongside the SvelteKit front-end on Vercel.
 
 ## Usage
 
