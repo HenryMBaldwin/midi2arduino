@@ -58,9 +58,16 @@
 <p>This transpiler converts midi to arduino code using the the Arduino Tone library. Due to the number of hardware timers on the Arduino UNO, only two tones can be generated on one Arduino UNO at a time. This means multiple files and Arduinos may be necessary to play a full MIDI file depending on the song. This transpiler will output the minimum number of code files in a .zip necessary to represent the given .mid.</p>
 <p>To sync the start of multiple Arduinos playback, it is recommended that a single button is wired to all Arduinos and programmed to start playback. Because of this, the outputted files will be txt files so the code can be easily copied rather than Arduino code files.</p>
 
+{#if uploadedFile}
+	<div class="card p-4 flex flex-row justify-between align-center">
+		<div class="m-y-auto">Uploaded file: {uploadedFile.name}</div>
+		<button class="btn btn-sm variant-glass-error" on:click={() => uploadedFile = null}>X</button>
+	</div>
+{:else}
 <FileDropzone accept=".mid" multiple={false} bind:files={files} on:change={handleFile} name="files">
 	<svelte:fragment slot="meta">.mid allowed</svelte:fragment>
 </FileDropzone>
+{/if}
 
 <div class="flex space-x-4 justify-center items-center w-full">
 	<LoaderButton text="Convert and Download" btnClass="btn btn-primary variant-ghost" bind:loading={fileLoading} onClick={convertAndDownload}/>
