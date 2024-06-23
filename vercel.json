@@ -1,0 +1,11 @@
+{
+    "version": 2,
+    "builds": [
+      { "src": "api/midi2arduino.py", "use": "@vercel/python" },
+      { "src": "package.json", "use": "@vercel/next" }
+    ],
+    "routes": [
+      { "src": "/api/.*", "dest": "/api/midi2arduino.py" },
+      { "handle": "filesystem" }
+    ]
+  }
