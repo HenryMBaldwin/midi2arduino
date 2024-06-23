@@ -14,4 +14,4 @@ This transpiler converts MIDI files to Arduino Code that utilizes the [Arduino T
 
 Just drop a MIDI file into the file drop zone and click convert and download. This will download a zip containing the txt file(s) with the Arduino code in them. Each file needs to be played back on a separate Ardiino UNO. To sync the start of multiple Arduinos playback, it is recommended that a single button is wired to all Arduinos and programmed to start playback. Because of this, the outputted files will be txt files so the code can be easily copied rather than Arduino code files. 
 
-This project was made with the classic [Arduino and pizoelectric speaker project in mind](https://docs.arduino.cc/built-in-examples/digital/toneMelody/).
+This project was made with the classic [Arduino and piezoelectric speaker project in mind](https://docs.arduino.cc/built-in-examples/digital/toneMelody/).
